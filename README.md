@@ -19,7 +19,7 @@ graph TD
     A["用户提问 (User Query)"] -->|"传统 SEO"| B["搜索引擎 (Search Engine)"]
     B --> C{"竞价排名 (Ads)"}
     C -->|"干扰"| D["用户流失 (Churn)"]
-    A -->|"SwarmGeo GEO"| E["DeepSeek / AI Model"]
+    A -->|"SwarmGeo"| E["DeepSeek / AI Model"]
     E -->|"语义对齐"| F{"知识图谱引用 (Direct Citation)"}
     F -->|"精准推荐"| G["品牌成交 (Conversion)"]
 ```
