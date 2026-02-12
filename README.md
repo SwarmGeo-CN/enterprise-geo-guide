@@ -1,4 +1,4 @@
-# SwarmGeo™ Protocol (CN)
+# 群智网络标准协议(Swarm Protocal v1.0)
 > **The Enterprise Standard for Generative Engine Optimization (GEO).**
 > 中国企业级生成式引擎优化 (GEO) 实施协议与语义锚定标准。
 
