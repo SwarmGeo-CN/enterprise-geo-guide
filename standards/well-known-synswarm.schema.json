@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://synswarm.dev/standards/well-known-synswarm.schema.json",
+  "title": "SynSwarm Well-Known Discovery Document",
+  "description": "Schema for /.well-known/synswarm.json (SynSwarm-AD, protocol 2026.1)",
+  "type": "object",
+  "required": ["protocol"],
+  "additionalProperties": false,
+  "properties": {
+    "protocol": {
+      "type": "string",
+      "const": "2026.1"
+    },
+    "rewriteProfiles": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^(conservative|balanced|aggressive)/[A-Za-z+]+$"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "fingerprintLevel": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 2
+    },
+    "trustRegistry": {
+      "type": "string",
+      "format": "uri"
+    },
+    "entityId": {
+      "type": "string"
+    },
+    "discovery": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "linkRel": {
+          "type": "string",
+          "const": "synswarm-discovery"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    }
+  }
+}

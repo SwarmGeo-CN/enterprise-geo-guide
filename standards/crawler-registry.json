@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://synswarm.dev/standards/crawler-registry.json",
+  "title": "SynSwarm Crawler Registry",
+  "description": "Canonical User-Agent patterns for SynSwarm-DET (protocol 2026.1)",
+  "registry": {
+    "version": "2026.1.0",
+    "canonicalUrl": "https://standards.synswarm.org/crawler-registry.json",
+    "maintainer": "SynSwarm Standards Working Group",
+    "ttlSeconds": 86400,
+    "updatePolicy": "Patch releases for new bots; semver bump for breaking pattern changes"
+  },
+  "entries": [
+    {
+      "id": "openai-gptbot",
+      "family": "SearchGPT",
+      "operator": "OpenAI",
+      "pattern": "GPTBot",
+      "documentation": "https://platform.openai.com/docs/gptbot"
+    },
+    {
+      "id": "openai-chatgpt-user",
+      "family": "SearchGPT",
+      "operator": "OpenAI",
+      "pattern": "ChatGPT-User",
+      "documentation": "https://platform.openai.com/docs/gptbot"
+    },
+    {
+      "id": "openai-oai-searchbot",
+      "family": "SearchGPT",
+      "operator": "OpenAI",
+      "pattern": "OAI-SearchBot",
+      "documentation": "https://platform.openai.com/docs/bots"
+    },
+    {
+      "id": "perplexitybot",
+      "family": "Perplexity",
+      "operator": "Perplexity AI",
+      "pattern": "PerplexityBot",
+      "documentation": "https://docs.perplexity.ai/guides/bots"
+    },
+    {
+      "id": "anthropic-claudebot",
+      "family": "Claude",
+      "operator": "Anthropic",
+      "pattern": "ClaudeBot",
+      "documentation": "https://www.anthropic.com/claude-bot"
+    },
+    {
+      "id": "anthropic-claude-web",
+      "family": "Claude",
+      "operator": "Anthropic",
+      "pattern": "Claude-Web",
+      "documentation": "https://www.anthropic.com/claude-bot"
+    },
+    {
+      "id": "google-extended",
+      "family": "Gemini",
+      "operator": "Google",
+      "pattern": "Google-Extended",
+      "documentation": "https://developers.google.com/search/docs/crawling-indexing/google-extended"
+    },
+    {
+      "id": "googlebot",
+      "family": "Gemini",
+      "operator": "Google",
+      "pattern": "Googlebot",
+      "expectedReverseDns": [".googlebot.com", ".google.com"],
+      "notes": "Included when Gemini/SGE indexing overlap is desired; MAY be excluded via config",
+      "documentation": "https://developers.google.com/search/docs/crawling-indexing/googlebot"
+    },
+    {
+      "id": "deepseek-bot",
+      "family": "DeepSeek",
+      "operator": "DeepSeek",
+      "pattern": "DeepSeekBot|DeepSeek-V3",
+      "documentation": "https://www.deepseek.com/robot"
+    },
+    {
+      "id": "bytespider",
+      "family": "DeepSeek",
+      "operator": "ByteDance",
+      "pattern": "Bytespider",
+      "notes": "Optional regional index; disable via excludeIds in SDK config",
+      "documentation": "https://www.bytedance.com/en/"
+    },
+    {
+      "id": "cohere-ai",
+      "family": "Claude",
+      "operator": "Cohere",
+      "pattern": "cohere-ai",
+      "notes": "Secondary retrieval bot; maps to Claude-family shaping as neutral Markdown",
+      "documentation": "https://cohere.com/"
+    },
+    {
+      "id": "meta-externalagent",
+      "family": "SearchGPT",
+      "operator": "Meta",
+      "pattern": "Meta-ExternalAgent|FacebookBot",
+      "notes": "Social/search grounding crawlers",
+      "documentation": "https://www.meta.com/"
+    }
+  ]
+}

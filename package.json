@@ -1,0 +1,12 @@
+{
+  "name": "synswarm-protocol",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "npm run build -w @synswarm/core-edge",
+    "test": "npm run test -w @synswarm/core-edge",
+    "sign": "node tools/sign-fingerprint.mjs"
+  }
+}

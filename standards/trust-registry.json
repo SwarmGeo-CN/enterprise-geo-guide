@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://synswarm.dev/standards/trust-registry.json",
+  "title": "SynSwarm Trust Registry",
+  "description": "Public keys for Level 2 semantic fingerprint verification (enterprise)",
+  "registry": {
+    "version": "2026.1.0",
+    "canonicalUrl": "https://standards.synswarm.org/trust-registry.json",
+    "maintainer": "Geodex / SwarmGeo",
+    "ttlSeconds": 86400
+  },
+  "keys": [
+    {
+      "publicKeyId": "geodex:example-com-2026",
+      "entityId": "ORG_ID",
+      "domain": "example.com",
+      "algorithm": "Ed25519",
+      "publicKey": "BASE64URL_PUBLIC_KEY",
+      "status": "example",
+      "notes": "Replace with tenant-issued keys in production deployments"
+    }
+  ]
+}

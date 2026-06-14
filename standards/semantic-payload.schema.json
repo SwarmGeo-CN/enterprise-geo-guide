@@ -1,0 +1,187 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://synswarm.dev/standards/semantic-payload.schema.json",
+  "title": "SynSwarm Semantic Payload",
+  "description": "Canonical response body for SynSwarm-REW (protocol 2026.1)",
+  "type": "object",
+  "required": ["synswarm", "content"],
+  "additionalProperties": false,
+  "properties": {
+    "synswarm": {
+      "type": "object",
+      "required": ["protocol", "rewriteProfile", "source"],
+      "additionalProperties": false,
+      "properties": {
+        "protocol": {
+          "type": "string",
+          "const": "2026.1"
+        },
+        "rewriteProfile": {
+          "type": "object",
+          "required": ["optimizationLevel", "targetModels"],
+          "additionalProperties": false,
+          "properties": {
+            "optimizationLevel": {
+              "type": "string",
+              "enum": ["conservative", "balanced", "aggressive"]
+            },
+            "targetModels": {
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "enum": ["SearchGPT", "Perplexity", "Claude", "Gemini", "DeepSeek"]
+              }
+            }
+          }
+        },
+        "source": {
+          "type": "object",
+          "required": ["url", "retrievedAt"],
+          "additionalProperties": false,
+          "properties": {
+            "url": {
+              "type": "string",
+              "format": "uri"
+            },
+            "retrievedAt": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "contentHash": {
+              "type": "string",
+              "description": "Optional SHA-256 of normalized origin text"
+            }
+          }
+        }
+      }
+    },
+    "entityGraph": {
+      "type": "object",
+      "description": "JSON-LD object or @graph wrapper extracted from origin",
+      "properties": {
+        "@context": {},
+        "@graph": {
+          "type": "array"
+        }
+      }
+    },
+    "content": {
+      "type": "object",
+      "required": ["title", "sections"],
+      "additionalProperties": false,
+      "properties": {
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "summary": {
+          "type": "string",
+          "description": "Entity-level synopsis; SHOULD be ≤120 words for SearchGPT profile"
+        },
+        "sections": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/section"
+          }
+        }
+      }
+    },
+    "fingerprint": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "verified": {
+          "type": "boolean"
+        },
+        "level": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 2,
+          "description": "0=absent, 1=declarative tag, 2=signed"
+        },
+        "tag": {
+          "type": ["string", "null"]
+        },
+        "domain": {
+          "type": "string",
+          "description": "Registrable domain; REQUIRED for Level 1+ when verified"
+        },
+        "entityId": {
+          "type": "string"
+        },
+        "publicKeyId": {
+          "type": "string"
+        },
+        "signature": {
+          "type": "string",
+          "description": "Base64URL signature for Level 2"
+        },
+        "signedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "nonce": {
+          "type": "string",
+          "description": "Base64URL nonce for Level 2 replay protection"
+        }
+      }
+    },
+    "audit": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "transparencyToken": {
+          "type": "string",
+          "pattern": "^sha256:[a-f0-9]{64}$"
+        },
+        "originContentHash": {
+          "type": "string",
+          "pattern": "^sha256:[a-f0-9]{64}$"
+        },
+        "rewriteEngine": {
+          "type": "string"
+        },
+        "prevToken": {
+          "type": "string",
+          "pattern": "^sha256:[a-f0-9]{64}$",
+          "description": "Prior token in optional hash chain (§11.1)"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "section": {
+      "type": "object",
+      "required": ["heading", "body"],
+      "additionalProperties": false,
+      "properties": {
+        "heading": {
+          "type": "string"
+        },
+        "level": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 6,
+          "default": 2
+        },
+        "body": {
+          "type": "string",
+          "description": "Markdown or plain text content block"
+        },
+        "citations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["url"],
+            "properties": {
+              "url": { "type": "string", "format": "uri" },
+              "label": { "type": "string" }
+            }
+          }
+        }
+      }
+    }
+  }
+}
